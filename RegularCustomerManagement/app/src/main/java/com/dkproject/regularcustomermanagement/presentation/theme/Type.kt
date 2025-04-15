@@ -1,4 +1,4 @@
-package com.dkproject.regularcustomermanagement.ui.theme
+package com.dkproject.regularcustomermanagement.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

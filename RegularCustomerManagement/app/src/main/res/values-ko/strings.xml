@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RegularCustomerManagement</string>
+    <string name="home">홈</string>
+    <string name="customer">고객</string>
+    <string name="handover">인수인계</string>
+</resources>
