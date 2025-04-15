@@ -58,6 +58,7 @@ androidx-navigation-test = {group = "androidx.navigation", name = "navigation-te
 
 androidx-viewmodel = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "viewModel"}
 androidx-windowSize = {group = "androidx.compose.material3", name = "material3-window-size-class"}
+androidx-icons-extended = {group = "androidx.compose.material", name = "material-icons-extended"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

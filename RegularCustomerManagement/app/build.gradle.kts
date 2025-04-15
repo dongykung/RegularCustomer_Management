@@ -73,8 +73,10 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.room.paging)
     ksp(libs.room.compiler)
-    //windowsize
+    //window size
     implementation(libs.androidx.windowSize)
+    //icon
+    implementation(libs.androidx.icons.extended)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
