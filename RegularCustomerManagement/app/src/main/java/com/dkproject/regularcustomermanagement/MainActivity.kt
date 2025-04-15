@@ -13,7 +13,9 @@ import androidx.navigation.compose.rememberNavController
 import com.dkproject.regularcustomermanagement.presentation.Component.AdaptiveScaffold
 import com.dkproject.regularcustomermanagement.presentation.navigation.AppNavigation
 import com.dkproject.regularcustomermanagement.presentation.theme.RegularCustomerManagementTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
