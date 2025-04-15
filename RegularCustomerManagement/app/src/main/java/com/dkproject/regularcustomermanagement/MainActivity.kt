@@ -4,44 +4,33 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.dkproject.regularcustomermanagement.ui.theme.RegularCustomerManagementTheme
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.dkproject.regularcustomermanagement.presentation.Component.AdaptiveScaffold
+import com.dkproject.regularcustomermanagement.presentation.navigation.AppNavigation
+import com.dkproject.regularcustomermanagement.presentation.theme.RegularCustomerManagementTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             RegularCustomerManagementTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                val navController: NavHostController = rememberNavController()
+                val windowSize = calculateWindowSizeClass(this)
+
+                AdaptiveScaffold(navController = navController, windowSize = windowSize.widthSizeClass) { innerPadding ->
+                    AppNavigation(navController, modifier = Modifier.padding(innerPadding))
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RegularCustomerManagementTheme {
-        Greeting("Android")
-    }
-}
+
