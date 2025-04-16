@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RegularCustomerManagement</string>
+    <string name="home">ホーム</string>
+    <string name="customer">" 顧客"</string>
+    <string name="handover">引き継ぎ</string>
+    <string name="addcustomer">"顧客を追加 "</string>
+    <string name="basicinfo">"基本情報 "</string>
+    <string name="affiliationtag">"所属とタグ "</string>
+    <string name="memo">メモ</string>
+    <string name="name">名前 *</string>
+    <string name="phonenumber">携帯電話番号</string>
+    <string name="nickname">ニックネーム</string>
+    <string name="carnumber">"車両番号 "</string>
+    <string name="customername">" 顧客名 "</string>
+    <string name="maxnamelength">名前は ％d 文字でなければなりません。</string>
+    <string name="phoneplaceholder">01012341234</string>
+    <string name="back">戻る</string>
+    <string name="next">次</string>
+    <string name="complete">完了</string>
+    <string name="independent">"無所属 "</string>
+    <string name="tag">タグ</string>
+    <string name="add">追加</string>
+    <string name="maxtag">タグの最大数は8個です</string>
+</resources>
