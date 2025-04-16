@@ -2,11 +2,13 @@ package com.dkproject.regularcustomermanagement.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
-val primaryLight = Color(0xFF5D5F5F)
-val onPrimaryLight = Color(0xFFFFFFFF)
+val primaryLight = Color(0xFF0A5AE3)         // 선택된 색상
+val onPrimaryLight = Color(0xFFFFFFFF)       // 버튼 내부 텍스트/아이콘
+val surfaceLight = Color(0xFFFFFFFF)         // 바텀 네비게이션 배경
+val onSurfaceLight = Color(0xFF5D5F5F)       // 비선택 상태의 텍스트/아이콘
+val secondaryLight = Color(0xFF5D5F5F)       // 보조 텍스트 or 아이콘
 val primaryContainerLight = Color(0xFFFFFFFF)
 val onPrimaryContainerLight = Color(0xFF747676)
-val secondaryLight = Color(0xFF5E5E5E)
 val onSecondaryLight = Color(0xFFFFFFFF)
 val secondaryContainerLight = Color(0xFFE4E2E2)
 val onSecondaryContainerLight = Color(0xFF646464)
@@ -18,10 +20,8 @@ val errorLight = Color(0xFFBA1A1A)
 val onErrorLight = Color(0xFFFFFFFF)
 val errorContainerLight = Color(0xFFFFDAD6)
 val onErrorContainerLight = Color(0xFF93000A)
-val backgroundLight = Color(0xFFFCF8F8)
+val backgroundLight = Color(0XFFF8F9FA)
 val onBackgroundLight = Color(0xFF1C1B1B)
-val surfaceLight = Color(0xFFFCF8F8)
-val onSurfaceLight = Color(0xFF1C1B1B)
 val surfaceVariantLight = Color(0xFFE0E3E3)
 val onSurfaceVariantLight = Color(0xFF444748)
 val outlineLight = Color(0xFF747878)
@@ -38,8 +38,10 @@ val surfaceContainerLight = Color(0xFFF1EDEC)
 val surfaceContainerHighLight = Color(0xFFEBE7E7)
 val surfaceContainerHighestLight = Color(0xFFE5E2E1)
 
-val primaryDark = Color(0xFFFFFFFF)
-val onPrimaryDark = Color(0xFF2F3131)
+val primaryDark = Color(0xFF82B4FF)          // 다크에서 강조 (light primary의 밝은 버전)
+val onPrimaryDark = Color(0xFF001B42)        // 텍스트 대비
+val surfaceDark = Color(0xFF1C1C1E)          // 바텀 네비게이션 배경
+val onSurfaceDark = Color(0xFFC7C7CC)
 val primaryContainerDark = Color(0xFFE2E2E2)
 val onPrimaryContainerDark = Color(0xFF636565)
 val secondaryDark = Color(0xFFC8C6C6)
@@ -56,8 +58,6 @@ val errorContainerDark = Color(0xFF93000A)
 val onErrorContainerDark = Color(0xFFFFDAD6)
 val backgroundDark = Color(0xFF141313)
 val onBackgroundDark = Color(0xFFE5E2E1)
-val surfaceDark = Color(0xFF141313)
-val onSurfaceDark = Color(0xFFE5E2E1)
 val surfaceVariantDark = Color(0xFF444748)
 val onSurfaceVariantDark = Color(0xFFC4C7C8)
 val outlineDark = Color(0xFF8E9192)
