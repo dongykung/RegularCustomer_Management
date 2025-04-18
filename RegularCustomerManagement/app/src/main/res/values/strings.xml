@@ -24,4 +24,9 @@
     <string name="favorites">Favorites</string>
     <string name="memoplaceholder">Please enter a customer-related note</string>
     <string name="failaddcustomer">Failed to add customer.</string>
+    <string name="retry">Retry</string>
+    <string name="failgetcustomer">Failed to retrieve\ncustomer information.</string>
+    <string name="car">Vehicle</string>
+    <string name="searchcustomer">Customer Search</string>
+    <string name="nonexistcustomer">The customer does not exist.\nTry adding a customer!</string>
 </resources>

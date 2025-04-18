@@ -25,4 +25,9 @@
     <string name="favorites">お気に入り</string>
     <string name="memoplaceholder">" 顧客関連のメモを入力してください"</string>
     <string name="failaddcustomer">고객 추가에 실패하였습니다.</string>
+    <string name="retry">"リトライ "</string>
+    <string name="failgetcustomer">顧客情報の取得に失敗しました。</string>
+    <string name="car">車両</string>
+    <string name="searchcustomer">"顧客検索 "</string>
+    <string name="nonexistcustomer">顧客は存在しません。\n顧客を追加してみてください！</string>
 </resources>
