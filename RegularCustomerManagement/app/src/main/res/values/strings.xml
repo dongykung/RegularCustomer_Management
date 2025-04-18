@@ -3,4 +3,25 @@
     <string name="home">Home</string>
     <string name="customer">Customer</string>
     <string name="handover">Hand Over</string>
+    <string name="addcustomer">Add Customer</string>
+    <string name="basicinfo">Basic</string>
+    <string name="affiliationtag">Affiliations</string>
+    <string name="memo">Notes</string>
+    <string name="name">Name *</string>
+    <string name="phonenumber">PhoneNumber</string>
+    <string name="nickname">Nickname</string>
+    <string name="carnumber">Car Number</string>
+    <string name="customername">Customer Name</string>
+    <string name="maxnamelength">"Name must be %d characters or less. "</string>
+    <string name="phoneplaceholder">01012341234</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="complete">Complete</string>
+    <string name="independent">Independent</string>
+    <string name="tag">Tag</string>
+    <string name="add">Add</string>
+    <string name="maxtag">The maximum number of tags is 8</string>
+    <string name="favorites">Favorites</string>
+    <string name="memoplaceholder">Please enter a customer-related note</string>
+    <string name="failaddcustomer">Failed to add customer.</string>
 </resources>

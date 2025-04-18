@@ -37,3 +37,19 @@ data class CustomerEntity(
         )
     }
 }
+
+fun Customer.toEntity(): CustomerEntity {
+    return CustomerEntity(
+        id = id,
+        name = name,
+        carNumber = carNumber,
+        affiliation = affiliation,
+        visitedList = visitedList,
+        phoneNumber = phoneNumber,
+        memoList = memoList,
+        isStar = isStar,
+        nickName = nickName,
+        createdAt = createdAt,
+        tags = tags
+    )
+}

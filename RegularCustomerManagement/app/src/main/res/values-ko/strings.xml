@@ -4,4 +4,25 @@
     <string name="home">홈</string>
     <string name="customer">고객</string>
     <string name="handover">인수인계</string>
+    <string name="addcustomer">고객 추가</string>
+    <string name="basicinfo">기본 정보</string>
+    <string name="affiliationtag">소속</string>
+    <string name="memo">메모사항</string>
+    <string name="name">이름 *</string>
+    <string name="phonenumber">휴대폰 번호</string>
+    <string name="nickname">닉네임</string>
+    <string name="carnumber">차량번호</string>
+    <string name="customername">고객 이름</string>
+    <string name="maxnamelength">이름은 %d자 이하여야 합니다.</string>
+    <string name="phoneplaceholder">01012341234</string>
+    <string name="back">이전</string>
+    <string name="next">다음</string>
+    <string name="complete">완료</string>
+    <string name="independent">무소속</string>
+    <string name="tag">태그</string>
+    <string name="add">추가</string>
+    <string name="maxtag">태그의 최대 수는 8개입니다</string>
+    <string name="favorites">즐겨찾기</string>
+    <string name="memoplaceholder">고객 관련 메모를 입력해 주세요</string>
+    <string name="failaddcustomer">顧客を追加できませんでした</string>
 </resources>
