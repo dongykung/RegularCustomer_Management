@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -43,22 +45,33 @@ import com.dkproject.regularcustomermanagement.presentation.theme.RegularCustome
 fun AffiliationInfoScreen(
     viewModel: AffiliationViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
+    onNextStep: (String, List<String>) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var tagString by rememberSaveable { mutableStateOf("") }
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(dimensionResource(R.dimen.padding_small)))
-            .background(MaterialTheme.colorScheme.onSecondary)
-    ) {
+    Column(modifier = modifier) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .clip(RoundedCornerShape(dimensionResource(R.dimen.padding_small)))
+                .background(MaterialTheme.colorScheme.onSecondary)
                 .padding(dimensionResource(R.dimen.padding_medium))
                 .verticalScroll(rememberScrollState())
         ) {
-            // Name Section
+            // Affiliations Section
+            Text(
+                modifier = modifier,
+                text = stringResource(R.string.affiliationtag),
+                fontWeight = FontWeight.Bold
+            )
+            InputTextField(
+                value = uiState.affiliationName,
+                onValueChange = viewModel::updateAffiliationName,
+                placeholder = stringResource(R.string.affiliationtag),
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                modifier = Modifier.fillMaxWidth().padding(vertical = dimensionResource(R.dimen.padding_small))
+            )
+            // Tag Section
             Text(
                 modifier = modifier,
                 text = stringResource(R.string.tag),
@@ -108,17 +121,17 @@ fun AffiliationInfoScreen(
                     textAlign = TextAlign.End
                 )
             }
-            // Next Button
-            BasicButton(
-                title = stringResource(R.string.next),
-                onClick = {
-
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = dimensionResource(R.dimen.padding_medium))
-            )
         }
+        // Next Button
+        BasicButton(
+            title = stringResource(R.string.next),
+            onClick = {
+                onNextStep(uiState.affiliationName, uiState.tags)
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = dimensionResource(R.dimen.padding_medium))
+        )
     }
 }
 
@@ -126,6 +139,6 @@ fun AffiliationInfoScreen(
 @Preview(showBackground = true)
 private fun AffiliationInfoPreview() {
     RegularCustomerManagementTheme {
-        AffiliationInfoScreen()
+        AffiliationInfoScreen(onNextStep = {_, _ ->})
     }
 }
