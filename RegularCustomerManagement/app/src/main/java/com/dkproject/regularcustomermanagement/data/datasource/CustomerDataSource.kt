@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 interface CustomerDataSource {
     fun getAllCustomers(): Flow<List<CustomerEntity>>
+    fun getSearchResults(query: String): Flow<List<CustomerEntity>>
     suspend fun addCustomer(customerEntity: CustomerEntity)
     suspend fun updateCustomer(customerEntity: CustomerEntity)
     suspend fun deleteCustomer(customerEntity: CustomerEntity)
@@ -17,6 +18,10 @@ class CustomerDataSourceImpl @Inject constructor(
 ): CustomerDataSource {
     override fun getAllCustomers(): Flow<List<CustomerEntity>> {
         return customerDao.getAllCustomers()
+    }
+
+    override fun getSearchResults(query: String): Flow<List<CustomerEntity>> {
+        return customerDao.getSearchResults(query = query)
     }
 
     override suspend fun addCustomer(customerEntity: CustomerEntity) {
