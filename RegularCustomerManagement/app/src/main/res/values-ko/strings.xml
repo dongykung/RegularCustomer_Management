@@ -24,4 +24,5 @@
     <string name="maxtag">태그의 최대 수는 8개입니다</string>
     <string name="favorites">즐겨찾기</string>
     <string name="memoplaceholder">고객 관련 메모를 입력해 주세요</string>
+    <string name="failaddcustomer">顧客を追加できませんでした</string>
 </resources>

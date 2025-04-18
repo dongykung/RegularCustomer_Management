@@ -23,4 +23,5 @@
     <string name="maxtag">The maximum number of tags is 8</string>
     <string name="favorites">Favorites</string>
     <string name="memoplaceholder">Please enter a customer-related note</string>
+    <string name="failaddcustomer">Failed to add customer.</string>
 </resources>

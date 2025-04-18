@@ -24,4 +24,5 @@
     <string name="maxtag">タグの最大数は8個です</string>
     <string name="favorites">お気に入り</string>
     <string name="memoplaceholder">" 顧客関連のメモを入力してください"</string>
+    <string name="failaddcustomer">고객 추가에 실패하였습니다.</string>
 </resources>
