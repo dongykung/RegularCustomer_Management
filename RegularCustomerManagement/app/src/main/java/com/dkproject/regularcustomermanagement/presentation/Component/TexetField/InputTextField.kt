@@ -26,7 +26,7 @@ fun InputTextField(
     enabled: Boolean = true,
     maxLines: Int = 1,
     textStyle: TextStyle = TextStyle.Default.copy(
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
         color = MaterialTheme.colorScheme.scrim
     ),
     placeholder: String,
