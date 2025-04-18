@@ -5,12 +5,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dkproject.regularcustomermanagement.domain.model.Customer
 import com.dkproject.regularcustomermanagement.domain.usecase.AddCustomerUseCase
+import com.dkproject.regularcustomermanagement.presentation.model.BaseUiEvent
 import com.dkproject.regularcustomermanagement.presentation.model.BasicInfo
 import com.dkproject.regularcustomermanagement.presentation.model.CreateCustomerStep
 import com.dkproject.regularcustomermanagement.presentation.navigation.TabScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -22,6 +25,9 @@ class CreateCustomerViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(CreateCustomerUiState())
     val uiState = _uiState.asStateFlow()
+
+    private val _uiEvent = MutableSharedFlow<BaseUiEvent>()
+    val uiEvent = _uiEvent.asSharedFlow()
 
     fun updateCurrentStep(step: CreateCustomerStep) {
         _uiState.update { it.copy(currentStep = step) }
@@ -63,9 +69,11 @@ class CreateCustomerViewModel @Inject constructor(
     }
 
     fun addCustomer() {
+        _uiState.update { it.copy(loading = true) }
         viewModelScope.launch(context = Dispatchers.IO) {
             addCustomerUseCase(customer = uiState.value.customer)
                 .onFailure {
+                    _uiState.update { it.copy(loading = false) }
                     Log.d("dk", "fail")
                 }
                 .onSuccess {
@@ -76,6 +84,7 @@ class CreateCustomerViewModel @Inject constructor(
 }
 
 data class CreateCustomerUiState(
+    val loading: Boolean = false,
     val currentStep: CreateCustomerStep = CreateCustomerStep.BASIC,
     val customer: Customer = Customer()
 )
