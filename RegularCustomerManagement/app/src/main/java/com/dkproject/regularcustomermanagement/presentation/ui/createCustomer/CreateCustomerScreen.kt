@@ -93,7 +93,8 @@ fun CreateCustomerScreen(
                         IconButton(onClick = {
                             if (currentStep == CreateCustomerStep.AFFILIATION) onMoveStep(CreateCustomerStep.BASIC)
                             else onMoveStep(CreateCustomerStep.AFFILIATION)
-                        }) {
+                        },
+                            enabled = !uiState.loading) {
                             Icon(Icons.AutoMirrored.Default.ArrowBack, null)
                         }
                     }
