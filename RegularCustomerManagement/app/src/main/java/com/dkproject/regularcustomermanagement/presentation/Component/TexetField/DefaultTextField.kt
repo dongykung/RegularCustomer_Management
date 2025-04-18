@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
@@ -49,13 +51,20 @@ fun DefaultTextField(
     isError: Boolean = false,
     textStyle: TextStyle = TextStyle.Default,
     interactionSource: InteractionSource,
+    onSubmit: () -> Unit = {},
     shape: Shape = RoundedCornerShape(dimensionResource(R.dimen.padding_small))
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     BasicTextField(
         modifier = modifier,
         value = value,
         onValueChange = onValueChange,
         keyboardOptions = keyboardOptions,
+        keyboardActions = KeyboardActions {
+            onSubmit()
+            keyboardController?.hide()
+        },
         maxLines = maxLines,
         singleLine = maxLines == 1,
         textStyle = textStyle
