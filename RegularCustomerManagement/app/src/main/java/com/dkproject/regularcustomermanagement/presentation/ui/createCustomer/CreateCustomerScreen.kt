@@ -30,6 +30,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -48,6 +49,7 @@ import com.dkproject.regularcustomermanagement.presentation.model.CreateCustomer
 import com.dkproject.regularcustomermanagement.presentation.theme.RegularCustomerManagementTheme
 import com.dkproject.regularcustomermanagement.presentation.ui.createCustomer.AffiliationInfo.AffiliationInfoScreen
 import com.dkproject.regularcustomermanagement.presentation.ui.createCustomer.BasicInfo.BasicInfoScreen
+import com.dkproject.regularcustomermanagement.presentation.ui.createCustomer.Memo.MemoScreen
 import com.dkproject.regularcustomermanagement.presentation.utils.Constants.CREATECUSTOMERSTEPS
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,6 +59,9 @@ fun CreateCustomerScreen(
     onMoveStep: (CreateCustomerStep) -> Unit = {},
     popBackStack: () -> Unit = {},
     updateBasicInfo: (BasicInfo) -> Unit = {},
+    updateAffiliationAndTags: (String, List<String>) -> Unit,
+    updateStarAndMemo: (Boolean, List<String>) -> Unit = { _, _ -> },
+    onCompleted: () -> Unit = {}
 ) {
     val currentStep = uiState.currentStep
     val progressValue by animateFloatAsState(
@@ -91,6 +96,13 @@ fun CreateCustomerScreen(
                         }) {
                             Icon(Icons.AutoMirrored.Default.ArrowBack, null)
                         }
+                    }
+                }
+            },
+            actions = {
+                AnimatedVisibility(currentStep == CreateCustomerStep.MEMO) {
+                    TextButton(onCompleted) {
+                        Text(stringResource(R.string.complete))
                     }
                 }
             }
@@ -143,9 +155,17 @@ fun CreateCustomerScreen(
                         })
                     }
                     CreateCustomerStep.AFFILIATION -> {
-                        AffiliationInfoScreen()
+                        AffiliationInfoScreen(onNextStep = { affiliationName, tags ->
+                            updateAffiliationAndTags(affiliationName,tags)
+                            onMoveStep(CreateCustomerStep.MEMO)
+                        })
                     }
-                    CreateCustomerStep.MEMO -> {}
+                    CreateCustomerStep.MEMO -> {
+                        MemoScreen(updateStarAndMemo = { star, memo ->
+                            updateStarAndMemo(star, memo)
+                            onCompleted()
+                        })
+                    }
                 }
             }
         }
@@ -156,6 +176,6 @@ fun CreateCustomerScreen(
 @Preview(showBackground = true)
 private fun CreateCustomerSreenPreview() {
     RegularCustomerManagementTheme {
-        CreateCustomerScreen(uiState = CreateCustomerUiState())
+        CreateCustomerScreen(uiState = CreateCustomerUiState(), updateAffiliationAndTags = {_, _ ->})
     }
 }
