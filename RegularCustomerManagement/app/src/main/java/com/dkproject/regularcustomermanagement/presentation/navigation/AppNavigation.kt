@@ -9,6 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -25,7 +26,7 @@ fun AppNavigation(
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier,
 ) {
-    NavHost(navController = navController, startDestination = DetailScreen.CreateCustomer) {
+    NavHost(navController = navController, startDestination = TabScreen.Home.route) {
         composable(TabScreen.Home.route) {
             Column(modifier = modifier) {
                 Text("this is home")
@@ -45,7 +46,8 @@ fun AppNavigation(
                     when (event) {
                         BaseUiEvent.PopBackStack -> { navController.popBackStack() }
                         is BaseUiEvent.ShowToast -> {
-                            Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
+                            val message = context.getString(event.message)
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
