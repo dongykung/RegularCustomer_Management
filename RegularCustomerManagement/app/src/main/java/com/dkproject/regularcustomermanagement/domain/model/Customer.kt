@@ -1,9 +1,11 @@
 package com.dkproject.regularcustomermanagement.domain.model
 
 import java.util.Date
+import java.util.UUID
+import kotlin.uuid.Uuid
 
 data class Customer(
-    val id: String = "", //고객 아이디
+    val id: String = UUID.randomUUID().toString(), //고객 아이디
     val name: String = "", // 고객 이름
     val carNumber: String? = null, // 고객 차량 번호
     val affiliation: String? = null, // 고객 소속
