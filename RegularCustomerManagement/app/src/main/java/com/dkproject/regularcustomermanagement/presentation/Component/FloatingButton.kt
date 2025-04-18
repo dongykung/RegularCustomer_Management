@@ -8,9 +8,11 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.FloatingActionButtonElevation
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.dkproject.regularcustomermanagement.R
 import com.dkproject.regularcustomermanagement.presentation.navigation.DetailScreen
@@ -22,7 +24,7 @@ import com.dkproject.regularcustomermanagement.presentation.navigation.TabScreen
 fun FloatingButton(
     navController: NavHostController,
     shape: Shape = FloatingActionButtonDefaults.shape,
-    elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
+    elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(0.dp),
     currentRoute: String? = null,
 ) {
     AnimatedVisibility(tabFloatingItem.any { it.route == currentRoute }) {
@@ -33,6 +35,7 @@ fun FloatingButton(
                     TabScreen.Customer.route -> { navController.navigate(DetailScreen.CreateCustomer)}
                 }
             },
+            containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f),
             shape = shape,
             elevation = elevation
         ) {
