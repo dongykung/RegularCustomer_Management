@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface CustomerRepository {
     fun getAllCustomers(): Flow<List<Customer>>
+    fun getSearchResults(query: String): Flow<List<Customer>>
     suspend fun addCustomer(customer: Customer): Result<Unit>
     suspend fun updateCustomer(customer: Customer): Result<Unit>
     suspend fun deleteCustomer(customer: Customer): Result<Unit>
