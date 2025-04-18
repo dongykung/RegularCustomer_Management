@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -40,16 +41,13 @@ fun BasicInfoScreen(
     onNextStep: (BasicInfo) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(dimensionResource(R.dimen.padding_small)))
-            .background(MaterialTheme.colorScheme.onSecondary)
-            .verticalScroll(rememberScrollState())
-    ) {
+    Column(modifier = modifier) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .clip(RoundedCornerShape(dimensionResource(R.dimen.padding_small)))
+                .background(MaterialTheme.colorScheme.onSecondary)
+                .verticalScroll(rememberScrollState())
                 .padding(dimensionResource(R.dimen.padding_medium))
         ) {
             // Name Section
@@ -64,7 +62,9 @@ fun BasicInfoScreen(
             )
             AnimatedVisibility(uiState.name.length > MAX_CUSTOMER_NAME_LENGTH) {
                 Text(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 3.dp),
                     text = stringResource(R.string.maxnamelength, MAX_CUSTOMER_NAME_LENGTH),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.error,
@@ -88,7 +88,10 @@ fun BasicInfoScreen(
                 placeholder = stringResource(R.string.phoneplaceholder),
                 onValueChange = viewModel::updatePhoneNumber,
                 maxLine = 1,
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next, keyboardType = KeyboardType.Number),
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Next,
+                    keyboardType = KeyboardType.Number
+                ),
                 modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_medium))
             )
             // carNumber Section
@@ -101,22 +104,24 @@ fun BasicInfoScreen(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_medium))
             )
-            BasicButton(
-                title = stringResource(R.string.next),
-                onClick = {
-                    onNextStep(
-                        BasicInfo(
-                            name = uiState.name,
-                            phoneNumber = uiState.phoneNumber,
-                            nickName = uiState.nickName,
-                            carNumber = uiState.carNumber
-                        )
-                    )
-                },
-                enabled = (uiState.name.isNotEmpty() && uiState.name.length <= MAX_CUSTOMER_NAME_LENGTH),
-                modifier = Modifier.fillMaxWidth().padding(vertical = dimensionResource(R.dimen.padding_medium))
-            )
         }
+        BasicButton(
+            title = stringResource(R.string.next),
+            onClick = {
+                onNextStep(
+                    BasicInfo(
+                        name = uiState.name,
+                        phoneNumber = uiState.phoneNumber,
+                        nickName = uiState.nickName,
+                        carNumber = uiState.carNumber
+                    )
+                )
+            },
+            enabled = (uiState.name.isNotEmpty() && uiState.name.length <= MAX_CUSTOMER_NAME_LENGTH),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = dimensionResource(R.dimen.padding_medium))
+        )
     }
 }
 
@@ -128,10 +133,10 @@ private fun InputSection(
     onValueChange: (String) -> Unit,
     maxLine: Int = 1,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    isError : Boolean = false,
+    isError: Boolean = false,
     modifier: Modifier = Modifier
 ) {
-    Text(modifier = modifier,text = title, fontWeight = FontWeight.Bold)
+    Text(modifier = modifier, text = title, fontWeight = FontWeight.Bold)
     InputTextField(
         value = value ?: "",
         onValueChange = onValueChange,
@@ -150,6 +155,8 @@ private fun InputSection(
 @Preview(showBackground = true)
 private fun BasicInfoPreview() {
     RegularCustomerManagementTheme {
-        BasicInfoScreen(onNextStep = { })
+        Column(modifier = Modifier.fillMaxSize()) {
+            BasicInfoScreen(onNextStep = { })
+        }
     }
 }
