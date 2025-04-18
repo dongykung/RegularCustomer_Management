@@ -2,6 +2,7 @@ package com.dkproject.regularcustomermanagement.presentation.Component.TexetFiel
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -44,6 +45,6 @@ fun InputTextField(
 @Preview(showBackground = true)
 private fun InputTextFieldPreview() {
     Column(modifier = Modifier.fillMaxSize()) {
-        InputTextField(value = "", onValueChange = {}, placeholder = "테스트", modifier = Modifier.padding(24.dp))
+        InputTextField(value = "", onValueChange = {}, placeholder = "테스트", modifier = Modifier.padding(24.dp).height(300.dp))
     }
 }
