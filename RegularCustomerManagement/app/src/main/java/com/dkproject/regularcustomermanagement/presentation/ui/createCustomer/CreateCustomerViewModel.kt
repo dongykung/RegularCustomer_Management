@@ -3,6 +3,7 @@ package com.dkproject.regularcustomermanagement.presentation.ui.createCustomer
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dkproject.regularcustomermanagement.R
 import com.dkproject.regularcustomermanagement.domain.model.Customer
 import com.dkproject.regularcustomermanagement.domain.usecase.AddCustomerUseCase
 import com.dkproject.regularcustomermanagement.presentation.model.BaseUiEvent
@@ -10,6 +11,7 @@ import com.dkproject.regularcustomermanagement.presentation.model.BasicInfo
 import com.dkproject.regularcustomermanagement.presentation.model.CreateCustomerStep
 import com.dkproject.regularcustomermanagement.presentation.navigation.TabScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateCustomerViewModel @Inject constructor(
-    private val addCustomerUseCase: AddCustomerUseCase
+    private val addCustomerUseCase: AddCustomerUseCase,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(CreateCustomerUiState())
     val uiState = _uiState.asStateFlow()
@@ -74,10 +76,11 @@ class CreateCustomerViewModel @Inject constructor(
             addCustomerUseCase(customer = uiState.value.customer)
                 .onFailure {
                     _uiState.update { it.copy(loading = false) }
-                    Log.d("dk", "fail")
+                    _uiEvent.emit(BaseUiEvent.ShowToast(R.string.failaddcustomer))
                 }
                 .onSuccess {
-                    Log.d("dk", "success")
+                    _uiState.update { it.copy(loading = false) }
+                    _uiEvent.emit(BaseUiEvent.PopBackStack)
                 }
         }
     }
