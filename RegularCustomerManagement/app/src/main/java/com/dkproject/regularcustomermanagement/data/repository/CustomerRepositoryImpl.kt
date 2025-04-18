@@ -17,6 +17,12 @@ class CustomerRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getSearchResults(query: String): Flow<List<Customer>> {
+        return customerDataSource.getSearchResults(query).map { list ->
+            list.map { it.toDomain() }
+        }
+    }
+
     override suspend fun addCustomer(customer: Customer): Result<Unit> = runCatching {
         customerDataSource.addCustomer(customer.toEntity())
     }
