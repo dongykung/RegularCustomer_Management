@@ -48,6 +48,7 @@ import com.dkproject.regularcustomermanagement.presentation.theme.RegularCustome
 fun MemoScreen(
     viewModel: MemoViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
+    loading: Boolean = false,
     updateStarAndMemo: (Boolean, List<String>) -> Unit = {_, _ ->}
 ) {
 
@@ -129,6 +130,8 @@ fun MemoScreen(
                     .fillMaxWidth()
                     .padding(vertical = dimensionResource(R.dimen.padding_medium)),
                 title = stringResource(R.string.complete),
+                enabled = !loading,
+                loading = loading,
                 onClick = {
                     updateStarAndMemo(uiState.isStar, uiState.memoList)
                 }
