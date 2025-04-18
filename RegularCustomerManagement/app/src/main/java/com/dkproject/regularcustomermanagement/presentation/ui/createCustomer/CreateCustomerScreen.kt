@@ -85,7 +85,7 @@ fun CreateCustomerScreen(
             navigationIcon = {
                 when (currentStep) {
                     CreateCustomerStep.BASIC -> {
-                        IconButton(onClick = {}) {
+                        IconButton(onClick = popBackStack) {
                             Icon(Icons.Default.Close, null)
                         }
                     }
