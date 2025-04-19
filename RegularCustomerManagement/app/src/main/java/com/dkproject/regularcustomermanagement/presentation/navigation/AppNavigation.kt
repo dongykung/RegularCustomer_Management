@@ -21,6 +21,7 @@ import com.dkproject.regularcustomermanagement.presentation.ui.createCustomer.Cr
 import com.dkproject.regularcustomermanagement.presentation.ui.createCustomer.CreateCustomerViewModel
 import com.dkproject.regularcustomermanagement.presentation.ui.customer.CustomerScreen
 import com.dkproject.regularcustomermanagement.presentation.ui.customer.CustomerViewModel
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun AppNavigation(
@@ -42,7 +43,7 @@ fun AppNavigation(
             CustomerScreen(
                 modifier = modifier, uiState = uiState, searchQuery = searchQuery,
                 onQueryChanged = viewModel::onSearchQueryChanged,
-                searchResults = searchResults
+                searchResults = searchResults.toImmutableList()
             )
         }
 
