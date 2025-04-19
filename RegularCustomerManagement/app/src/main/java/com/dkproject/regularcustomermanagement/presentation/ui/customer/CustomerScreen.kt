@@ -23,6 +23,8 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -30,7 +32,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -50,12 +55,14 @@ import com.dkproject.regularcustomermanagement.presentation.ui.util.ErrorView
 import com.dkproject.regularcustomermanagement.presentation.ui.util.LoadingScreen
 import com.dkproject.regularcustomermanagement.presentation.utils.Constants
 import com.dkproject.regularcustomermanagement.presentation.utils.Constants.CUSTOMER_MOCKS
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun CustomerScreen(
     modifier: Modifier = Modifier,
-    uiState: UiState<List<Customer>>,
-    searchResults: List<Customer>,
+    uiState: UiState<ImmutableList<Customer>>,
+    searchResults: ImmutableList<Customer>,
     searchQuery: String,
     onQueryChanged: (String) -> Unit
 ) {
@@ -78,15 +85,20 @@ fun CustomerScreen(
 @Composable
 fun CustomerListView(
     modifier: Modifier = Modifier,
-    uiState: List<Customer>,
-    searchResults: List<Customer>,
+    uiState: ImmutableList<Customer>,
+    searchResults: ImmutableList<Customer>,
     searchQuery: String,
     onQueryChanged: (String) -> Unit = {}
 ) {
-    val grouped: Map<String, List<Customer>> = uiState.groupBy { customer ->
-        val affiliation = customer.affiliation
-        if (affiliation.isNullOrEmpty()) stringResource(R.string.independent) else affiliation
-    }
+    val favoriteGroup = mapOf(stringResource(R.string.favorites) to uiState.filter { it.isStar })
+
+    val normalGroup = uiState
+        .filterNot { it.isStar }
+        .groupBy { customer ->
+            val affiliation = customer.affiliation
+            if (affiliation.isNullOrEmpty()) stringResource(R.string.independent) else affiliation
+        }
+    val grouped: Map<String, List<Customer>> = favoriteGroup + normalGroup
     val searchGrouped: Map<String, List<Customer>> = searchResults.groupBy { customer ->
         val affiliation = customer.affiliation
         if (affiliation.isNullOrEmpty()) stringResource(R.string.independent) else affiliation
@@ -127,21 +139,23 @@ fun CustomerListView(
                     .padding(top = dimensionResource(R.dimen.padding_eight)),
             ) {
                 showList.forEach { (affiliation, customers) ->
-                    stickyHeader {
-                        Surface(
-                            modifier = Modifier.fillMaxWidth(),
-                            color = MaterialTheme.colorScheme.background
-                        ) {
-                            Text(
-                                modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small)),
-                                text = affiliation,
-                                style = MaterialTheme.typography.headlineSmall,
-                                fontWeight = FontWeight.Bold
-                            )
+                    if (customers.isNotEmpty()) {
+                        stickyHeader {
+                            Surface(
+                                modifier = Modifier.fillMaxWidth(),
+                                color = MaterialTheme.colorScheme.background
+                            ) {
+                                Text(
+                                    modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small)),
+                                    text = affiliation,
+                                    style = MaterialTheme.typography.headlineSmall,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
                         }
-                    }
-                    items(customers, key = { it.id }) { customer ->
-                        CustomerListItem(customer = customer)
+                        items(customers, key = { it.id }) { customer ->
+                            CustomerListItem(customer = customer)
+                        }
                     }
                 }
             }
@@ -159,6 +173,7 @@ fun CustomerListItem(
     ),
     customer: Customer
 ) {
+    var expanded by remember { mutableStateOf(false) }
     ElevatedCard(
         modifier = modifier
             .fillMaxWidth()
@@ -202,8 +217,24 @@ fun CustomerListItem(
                         }
                     }
             }
-            IconButton(onClick = { /*TODO*/ }, modifier = Modifier.align(Alignment.TopEnd)) {
-                Icon(Icons.Default.MoreVert, null)
+            Box(
+                modifier = Modifier.align(Alignment.TopEnd)
+            ) {
+                IconButton(
+                    onClick = { expanded = true }
+                ) {
+                    Icon(Icons.Default.MoreVert, null)
+                }
+
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false }
+                ) {
+                    DropdownMenuItem(
+                        text = { Text("test") },
+                        onClick = { expanded = false }
+                    )
+                }
             }
         }
     }
@@ -216,9 +247,9 @@ private fun CustomerListPreview() {
         Column(modifier = Modifier.fillMaxSize()) {
             CustomerListView(
                 modifier = Modifier.fillMaxSize(),
-                uiState = emptyList(),
+                uiState = persistentListOf(),
                 searchQuery = "",
-                searchResults = emptyList()
+                searchResults = persistentListOf()
             )
         }
     }

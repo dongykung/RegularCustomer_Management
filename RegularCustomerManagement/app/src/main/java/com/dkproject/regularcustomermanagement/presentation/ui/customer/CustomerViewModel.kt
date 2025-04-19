@@ -11,6 +11,8 @@ import com.dkproject.regularcustomermanagement.domain.usecase.GetSearchResultUse
 import com.dkproject.regularcustomermanagement.presentation.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -52,7 +54,7 @@ class CustomerViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
-    private val _uiState = MutableStateFlow<UiState<List<Customer>>>(UiState.Loading)
+    private val _uiState = MutableStateFlow<UiState<ImmutableList<Customer>>>(UiState.Loading)
     val uiState = _uiState.asStateFlow()
 
     init {
@@ -69,7 +71,7 @@ class CustomerViewModel @Inject constructor(
                 }
                 .collect { list ->
                     Log.d("CustomerViewModel", "getCustomers: $list")
-                    _uiState.value = UiState.Success(list)
+                    _uiState.value = UiState.Success(list.toImmutableList())
                 }
         }
     }
