@@ -20,7 +20,7 @@ import com.dkproject.regularcustomermanagement.presentation.Component.Button.Bas
 import com.dkproject.regularcustomermanagement.presentation.theme.RegularCustomerManagementTheme
 
 @Composable
-fun ErrorView(
+fun ErrorScreen(
     modifier: Modifier = Modifier,
     message: String,
     onRetry: () -> Unit = {},
@@ -44,7 +44,7 @@ fun ErrorView(
 @Preview(showBackground = true)
 private fun ErrorViewPreview() {
     RegularCustomerManagementTheme {
-        ErrorView(
+        ErrorScreen(
             message = stringResource(R.string.failgetcustomer),
             modifier = Modifier.fillMaxSize()
         )
