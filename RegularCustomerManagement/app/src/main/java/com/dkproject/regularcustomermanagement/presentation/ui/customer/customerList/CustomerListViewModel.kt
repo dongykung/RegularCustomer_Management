@@ -1,4 +1,4 @@
-package com.dkproject.regularcustomermanagement.presentation.ui.customer
+package com.dkproject.regularcustomermanagement.presentation.ui.customer.customerList
 
 import android.content.Context
 import android.util.Log
@@ -8,6 +8,7 @@ import com.dkproject.regularcustomermanagement.R
 import com.dkproject.regularcustomermanagement.domain.model.Customer
 import com.dkproject.regularcustomermanagement.domain.usecase.GetAllCustomerUseCase
 import com.dkproject.regularcustomermanagement.domain.usecase.GetSearchResultUseCase
+import com.dkproject.regularcustomermanagement.domain.usecase.UpdateCustomerUseCase
 import com.dkproject.regularcustomermanagement.presentation.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -31,9 +32,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CustomerViewModel @Inject constructor(
+class CustomerListViewModel @Inject constructor(
     private val getAllCustomerUseCase: GetAllCustomerUseCase,
     private val getSearchResultUseCase: GetSearchResultUseCase,
+    private val updateCustomerUseCase: UpdateCustomerUseCase,
     @ApplicationContext private val context: Context
 ): ViewModel() {
 
@@ -61,7 +63,7 @@ class CustomerViewModel @Inject constructor(
         getCustomers()
     }
 
-    fun getCustomers() {
+    private fun getCustomers() {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
             getAllCustomerUseCase()
@@ -73,6 +75,13 @@ class CustomerViewModel @Inject constructor(
                     Log.d("CustomerViewModel", "getCustomers: $list")
                     _uiState.value = UiState.Success(list.toImmutableList())
                 }
+        }
+    }
+
+    fun updateCustomer(customer: Customer) {
+        viewModelScope.launch {
+            updateCustomerUseCase(customer)
+                .onFailure {  }
         }
     }
 
